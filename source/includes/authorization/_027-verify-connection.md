@@ -1,6 +1,7 @@
 ## Verify Connection
 
-If a plugin requires to verify connection, this message must be implemented in order to verify connection using current authorization configuration.
+This message must be implemented by plugin in order to provide an option to verify connection for a given authorization configuration. The plugin is 
+expected to validate the configuration before trying to check connection.
 
 <p class='request-name-heading'>Request name</p>
 
@@ -8,7 +9,7 @@ If a plugin requires to verify connection, this message must be implemented in o
 
 <p class='request-body-heading'>Request body</p>
 
-> An example validation request body for LDAP plugin
+> An example LDAP plugin authorization configuration request body to verify connection
 
 ```json
 {
@@ -21,7 +22,7 @@ If a plugin requires to verify connection, this message must be implemented in o
   "EmailAttribute": "mail"
 }
 ```
-The request body will contain a configuration, for which verify connection is executed.
+The request body will contain the authorization configuration for which verify connection is executed.
 
 <p class='response-code-heading'>Response code</p>
 
@@ -29,15 +30,43 @@ The plugin is expected to return status `200` if it can understand the request.
 
 <p class='response-body-heading'>Response Body</p>
 
-> The plugin should respond with JSON array response for each configuration key that has a validation error
-
+> Example response body based on successful verification
+    
 ```json
-[
-  {
-    "key": "ManagerDN",
-    "message": "Manager dn is invalid."
-  }
-]
+{
+  "status": "success",
+  "message": "Check connection passed"
+}
 ```
 
-If any of the input keys have a validation error on them, the plugin is expected to return a list of [Verify connection error objects](#the-verify-connection-error-object). If the configuration is valid, the plugin should return an empty JSON array.
+> Example response body based on verification failed
+
+```json
+{
+  "status": "failure",
+  "message": "Check connection failed, unable to reach ldap://my_ldap_server"
+}
+```
+
+> Example response body based on validation failed
+
+```json
+{
+  "status": "validation-failed",
+  "message": "Validation failed for the given authorization config",
+  "errors": [
+    {
+      "key": "ManagerDN",
+      "message": "Manager dn is invalid."
+    }
+  ]
+}
+```
+
+The response body will contain the following JSON elements:
+
+| Key       | Type     | Description                                                                   |
+|-----------|----------|-------------------------------------------------------------------------------|
+| `status`  | `String` | Status of verify connection call, can be eithe of `success` or `failure` or `validation-failure` |
+| `message` | `String` | Message corresponding to the verify connection status. |
+| `errors`  | `Object` | In case of validation errors plugin should return a list of [validation error objects](#the-validation-error-object).|
