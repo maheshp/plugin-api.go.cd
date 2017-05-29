@@ -1,6 +1,6 @@
 ## Get Role Configuration Metadata
 
-This is a message that the plugin should implement, to allow users to configure role configuration(`<pluginRole>`) from the Role Configuration View in GoCD.
+This is a message that the plugin should implement to allow users to configure role configuration(`<pluginRole>`) from the Role Configuration View in GoCD. The role configuration should provide a way for admins to map Authorization Server roles with GoCD roles(e.g map LDAP groups to GoCD roles).
 
 <p class='request-name-heading'>Request name</p>
 

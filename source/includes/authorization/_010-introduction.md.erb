@@ -1,14 +1,14 @@
-# Authorization Plugins(Beta)
+# Authorization Plugins
 
 ## Introduction
 
-GoCD currently supports password-file, LDAP and plugin based authentication.
+The Authorization endpoints are GoCD extensions to build plugins which provide authentication and authorization.
 
-In addition to authentication, GoCD offers authorization by restricting certain operations to specific users and groups of users ("roles").
+GoCD offers authorization by restricting certain operations to specific users and groups of users ("roles").
 
 Without the use of authorization plugins, roles can only be managed through GoCD and it does not provide an ability to use roles defined in systems used for authentication (for example in LDAP groups). With this limitation, administrators need to configure roles in multiples places.
 
-The introduction of the authorization plugin endpoint (Beta) allows GoCD to delegate both authentication and authorization of users to plugins. The plugins will have the flexibility to use any identity service providers like LDAP, Google, GitHub etc.
+The introduction of the authorization plugin endpoint allows GoCD to delegate both authentication and authorization of users to plugins. The plugins will have the flexibility to use any identity service providers like LDAP, Google, GitHub etc.
 
 If you're looking to start away with a basic template for authorization plugins, we recommend forking this [Github repository](https://github.com/gocd-contrib/authorization-skeleton-plugin).
 
@@ -21,34 +21,44 @@ Authorization Plugins need two types of configuration, [`<authConfig/>`](#author
 > An example authorization configuration
 
 ```xml
-<authConfigs>
-  <authConfig id="ldap" pluginId="cd.go.authorization.ldap">
-    <property>
-      <key>Url</key>
-      <value>ldap://ldap.server.url:10389</value>
-    </property>
-    <property>
-      <key>ManagerDN</key>
-      <value>uid=admin,ou=system</value>
-    </property>
-    <property>
-      <key>SearchBase</key>
-      <value>ou=users,ou=system</value>
-    </property>
-    <property>
-      <key>Password</key>
-      <value>secret</value>
-    </property>
-    <property>
-      <key>SearchFilter</key>
-      <value>uid</value>
-    </property>
-    <property>
-      <key>DisplayNameAttribute</key>
-      <value>displayName</value>
-    </property>
-  </authConfig>
-</authConfigs>
+  <security>
+    <authConfigs>
+      <authConfig id="profile-id" pluginId="cd.go.authentication.ldap">
+        <property>
+          <key>Url</key>
+          <value>ldap://ldap-server-url</value>
+        </property>
+        <property>
+          <key>ManagerDN</key>
+          <value>cn=go,ou=Teams,dc=corporate,dc=example,dc=com</value>
+        </property>
+        <property>
+          <key>Password</key>
+          <value>secret</value>
+        </property>
+        <property>
+          <key>SearchBases</key>
+          <value>ou=Teams,dc=corporate,dc=example,dc=com</value>
+        </property>
+        <property>
+          <key>UserLoginFilter</key>
+          <value>(sAMAccountName={0})</value>
+        </property>
+        <property>
+          <key>UserSearchFilter</key>
+          <value>(|(sAMAccountName=*{0}*)(uid=*{0}*)(cn=*{0}*)(mail=*{0}*)(otherMailbox=*{0}*))</value>
+        </property>
+        <property>
+          <key>DisplayNameAttribute</key>
+          <value>displayName</value>
+        </property>
+        <property>
+          <key>EmailAttribute</key>
+          <value>mail</value>
+        </property>
+      </authConfig>
+    </authConfigs>
+  </security>
 ```
 
 Authorization configuration will usually allow administrators to configure  the connection settings for your authorization plugin, and may include configuration like URLs, and credentials, among others.
@@ -62,8 +72,12 @@ GoCD administrators could provide multiple authorization configurations to conne
 ```xml
 <pluginRole name="spacetiger" authConfigId="ldap">
   <property>
-    <key>memberOf</key>
-    <value>ou=spacetiger,ou=example,ou=com</value>
+    <key>MemberOfAttribute</key>
+    <value>memberOf</value>
+  </property>
+  <property>
+    <key>MatchingGroups</key>
+    <value>CN=Dev,OU=Groups,DC=some,DC=enterprise,DC=com</value>
   </property>
 </pluginRole>
 ```

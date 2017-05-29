@@ -1,6 +1,6 @@
 ## Search users
 
-If a plugin supports search, this message must be implemented in order for GoCD users to search for users in external authorization systems.
+If a plugin supports users search, this message must be implemented to lookup for users in an external Authorization Server through GoCD User Summary page.
 
 <p class='request-name-heading'>Request name</p>
 

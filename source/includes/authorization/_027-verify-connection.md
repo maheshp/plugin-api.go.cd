@@ -16,7 +16,7 @@ expected to validate the configuration before trying to check connection.
   "Url": "ldap://foo.bar.com:389",
   "SearchBase": "ou=users,ou=system",
   "ManagerDN": "Dummy manager dn",
-  "SearchFilter": "uid",
+  "UserLoginFilter": "(uid={0})",
   "Password": "secret",
   "DisplayNameAttribute": "displayName",
   "EmailAttribute": "mail"

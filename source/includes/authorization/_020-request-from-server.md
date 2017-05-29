@@ -8,6 +8,13 @@ In order to implement an authorization extension point, following messages must 
 * [Get Authorization Configuration View](#get-authorization-configuration-view)
 * [Validate Authorization Configuration](#validate-authorization-configuration)
 * [Authenticate User](#authenticate-user)
+* [Authorization Server URL](#authorization-server-url)
+* [Verify Connection](#verify-connection)
+
+If a plugin implements web based authentication, apart from the above the plugin must implement the following messages.
+
+* [Fetch Access Token](#fetch-access-token)
+* [Get Authorization Server Redirect URL](#authorization-server-redirect-url)
 
 In order to create plugin role configuration `<pluginRole>`, following messages must be implemented by plugin.
 
@@ -18,7 +25,3 @@ In order to create plugin role configuration `<pluginRole>`, following messages 
 If a plugin supports search, the following message must be implemented in order to serve search request from server.
 
 * [Search user](#search-users)
-
-Nice to have
-
-* [Verify Connection](#verify-connection)

@@ -1,7 +1,9 @@
 ## Authenticate User
 
-This message is a request to the plugin to authenticate and authorize a user, along with the user credentials and all known
-`<authConfig />`  and `<roleConfig />`configured for the plugin.
+This message is a request to the plugin to authenticate and authorize a user, along with the user credentials the server sends all known
+`<authConfig />`  and `<roleConfig />` configured for the plugin. In case of multiple `<authConfig />` configured for the plugin, the plugin
+is expected to try authenticating the user against each config until a successful authentication.
+
 
 <p class='request-name-heading'>Request name</p>
 
@@ -50,7 +52,7 @@ This message is a request to the plugin to authenticate and authorize a user, al
 
 | Key            | Type     | Description                                                                   |
 |----------------|----------|-------------------------------------------------------------------------------|
-| `credentials`  | `Object` | For a plugin which supports password based authentication, this key should contain the 'username' and 'password' provided by the user at the time of login. |
+| `credentials`  | `Object` | For a password based plugins, the server sends the 'username' and 'password' provided by the user at the time of login. For web based plugins, the server sends the data received from [Fetch Access Token](#fetch-access-token) call made to the plugin.|
 | `auth_configs` | `Object` | This key contains list of `<authconfig>` configured for the plugin. |
 | `role_configs` | `Object` | This key contains list of `<roleconfig>` configured for the plugin. |
 
