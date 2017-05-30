@@ -1,6 +1,6 @@
 ## Fetch Access Token
 
-This is a message that a web based plugin should implement. In case of web based authentication a user is authenticated by an external authorization server, on successful authentication the authorization server should redirect to GoCD endpoint returned by [authorization server redirect url] request, we would refer to these requests as pre-authenticated requests. Depending upon the authorization server the pre-authenticated requests can contain user information either in HTTP header or request params. GoCD upon receiving a pre-authenticated request would make the fetch access token request to the plugin by passing all the user information provide by the authorization server, the plugin in turn should exchange this information with the authorization server to request for an access token to make subsequent requests on behalf of the user.
+This is a message that a web based plugin should implement. In case of web based authentication a user is authenticated by an external authorization server, on successful authentication the authorization server should redirect to GoCD endpoint returned by [authorization server url](#authorization-server-url) request, we would refer to these requests as pre-authenticated requests. Depending upon the authorization server the pre-authenticated requests can contain user information either in HTTP header or request params. GoCD upon receiving a pre-authenticated request would make the fetch access token request to the plugin by passing all the user information provide by the authorization server, the plugin in turn should exchange this information with the authorization server to request for an access token to make subsequent requests on behalf of the user.
 
 
 <p class='request-name-heading'>Request name</p>
@@ -33,9 +33,11 @@ This is a message that a web based plugin should implement. In case of web based
 | `role_configs` | `Object` | This key contains list of `<roleconfig>` configured for the plugin. |
 
 <p class='request-body-heading'>Request parameters</p>
+
 Request paramters would contain all request parameters sent by the external authorization server to GoCD.
 
 <p class='request-body-heading'>Request headers</p>
+
 Request headers would contain all the HTTP request headers sent by the external authorization server to GoCD.
 
 <p class='response-code-heading'>Response Body</p>
