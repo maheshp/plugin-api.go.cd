@@ -4,11 +4,11 @@
 
 The Authorization endpoints are GoCD extensions to build plugins which provide authentication and authorization.
 
-GoCD offers authorization by restricting certain operations to specific users and groups of users ("roles").
+GoCD enforces authorization by restricting certain operations to specific users and groups of users ("roles").
 
 Without the use of authorization plugins, roles can only be managed through GoCD and it does not provide an ability to use roles defined in systems used for authentication (for example in LDAP groups). With this limitation, administrators need to configure roles in multiples places.
 
-The introduction of the authorization plugin endpoint allows GoCD to delegate both authentication and authorization of users to plugins. The plugins will have the flexibility to use any identity service providers like LDAP, Google, GitHub etc.
+Authorization plugin endpoint allows GoCD to delegate both authentication and authorization of users to plugins. The plugins will have the flexibility to use any authorization service providers like LDAP, Google, GitHub etc.
 
 If you're looking to start away with a basic template for authorization plugins, we recommend forking this [Github repository](https://github.com/gocd-contrib/authorization-skeleton-plugin).
 
@@ -61,9 +61,9 @@ Authorization Plugins need two types of configuration, [`<authConfig/>`](#author
   </security>
 ```
 
-Authorization configuration will usually allow administrators to configure  the connection settings for your authorization plugin, and may include configuration like URLs, and credentials, among others.
+Authorization configuration will usually allow administrators to configure the connection settings for your authorization plugin, and may include configuration like URLs and credentials, among others.
 
-GoCD administrators could provide multiple authorization configurations to connect with multiple identity providers.
+GoCD administrators could provide multiple authorization configurations to connect with multiple authorization servers.
 
 ### Plugin Role Configuration
 
@@ -82,6 +82,6 @@ GoCD administrators could provide multiple authorization configurations to conne
 </pluginRole>
 ```
 
-This is used to define roles in GoCD, unlike the current roles which contains a list of users pluginRole provides configuration to map a GoCD role to a role defined in an external identity service. e.g pluginRole can be used to define mappings between LDAP group and GoCD roles.
+This is used to define roles in GoCD, unlike the current roles which contains a list of users pluginRole provides configuration to map a GoCD role to a role defined in an external authorization service. e.g pluginRole can be used to define mappings between LDAP group and GoCD roles.
 
 <%= partial 'includes/shared/plugin-structure.md.erb', locals: { plugin_class: 'LdapAuthorizationPlugin', plugin_type: 'authorization', minimum_version: '17.2.0', endpoint_version: '1.0' } %>

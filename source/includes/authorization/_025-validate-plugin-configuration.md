@@ -1,6 +1,6 @@
 ## Validate Authorization Configuration
 
-If a plugin requires any authorization configuration, this message must be implemented in order to validate the configuration.
+This message must be implemented in order to validate the configuration. The plugin would receive this message from GoCD server during config save.
 
 <p class='request-name-heading'>Request name</p>
 

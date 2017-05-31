@@ -24,9 +24,10 @@ If a plugin supports users search, this message must be implemented to lookup fo
 }
 ```
 
-<p class='attributes-table-follows'></p>
 
 The request body will contain the following JSON elements:
+
+<p class='attributes-table-follows'></p>
 
 | Key           | Type     | Description                            |
 |---------------|----------|----------------------------------------|

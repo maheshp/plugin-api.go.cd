@@ -1,7 +1,8 @@
 ## Verify Connection
 
-This message must be implemented by plugin in order to provide an option to verify connection for a given authorization configuration. The plugin is 
-expected to validate the configuration before trying to check connection.
+The plugin must implement this message in order to verify if a connection can be established with the authorization server using the authorization configuration.
+
+The plugin is expected to validate the configuration before trying to check connection.
 
 <p class='request-name-heading'>Request name</p>
 
@@ -65,8 +66,10 @@ The plugin is expected to return status `200` if it can understand the request.
 
 The response body will contain the following JSON elements:
 
-| Key       | Type     | Description                                                                   |
-|-----------|----------|-------------------------------------------------------------------------------|
+<p class='attributes-table-follows'></p>
+
+| Key       | Type     | Description |
+|-----------|----------|-------------|
 | `status`  | `String` | Status of verify connection call, can be eithe of `success` or `failure` or `validation-failure` |
 | `message` | `String` | Message corresponding to the verify connection status. |
 | `errors`  | `Object` | In case of validation errors plugin should return a list of [validation error objects](#the-validation-error-object).|
