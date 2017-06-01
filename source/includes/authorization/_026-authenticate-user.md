@@ -1,9 +1,10 @@
 ## Authenticate User
 
-This message is a request to the plugin to authenticate and authorize a user, along with the user credentials the server sends all known
+This message is a request to the plugin to authenticate and authorize a user, along with the user credentials the GoCD server sends all known
 `<authConfig />`  and `<roleConfig />` configured for the plugin. In case of multiple `<authConfig />` configured for the plugin, the plugin
 is expected to try authenticating the user against each config until a successful authentication.
 
+GoCD forces a perodic re-authentication of users, this is to ensure any changes like removing of users or roles in the external authorization server are reflected in GoCD.
 
 <p class='request-name-heading'>Request name</p>
 
