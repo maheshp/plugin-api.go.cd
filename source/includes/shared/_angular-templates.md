@@ -40,6 +40,10 @@ When an Angular template is used in a Go plugin, to define the configuration UI,
 
 Suppose the key of the configuration property stored in the XML is "username", with value, "alice", then Go will make sure that the value is available to the template as "username" when used in an Angular-specific HTML attribute like "ng-model".
 
+![Plugin Angular Architecture](../../images/plugin_angular.png)
+
+So, the name "foobar" needs to be the same across the configuration XML, the Angular template as well as in any code that the plugin has.
+
 <div style='clear: both;'></div>
 
 #### Showing validation errors in the UI
